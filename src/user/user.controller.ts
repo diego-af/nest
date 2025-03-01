@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpException,
   Inject,
   Param,
   Post,
@@ -35,5 +37,16 @@ export class UserController {
     const userUptade = await this.userService.updateuser({ id, data });
 
     return userUptade;
+  }
+  @Delete('user/:id')
+  async deleteUser(@Param('id') id: string) {
+    const userDeleted = await this.userService.deleteuser({ id });
+
+    if (userDeleted) {
+      return {
+        message: 'usuário deletado com sucesso',
+      };
+    }
+    throw new HttpException('internal Server error', 500);
   }
 }
