@@ -35,8 +35,7 @@ export class AuthGuard implements CanActivate {
         secret: process.env.SECRET_KEY,
       });
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      request['user'] = payload;
+      request['user'] = payload as JwtPayload;
     } catch (error) {
       console.log(error);
       throw new UnauthorizedException();
